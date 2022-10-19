@@ -43,23 +43,23 @@ function Home() {
             <ul>
               <li class="active">
 
-                <span class="tooltip">Connections</span>
+                <span class="tooltip"></span>
               </li>
               <li>
 
-                <span class="tooltip">Devices</span>
+                <span class="tooltip"></span>
               </li>
               <li>
 
-                <span class="tooltip">Contacts</span>
+                <span class="tooltip"></span>
               </li>
               <li>
 
-                <span class="tooltip">Fax</span>
+                <span class="tooltip"></span>
               </li>
               <li>
 
-                <span class="tooltip">Settings</span>
+                <span class="tooltip"></span>
               </li>
             </ul>
           </nav>
