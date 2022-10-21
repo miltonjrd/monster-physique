@@ -12,7 +12,7 @@ export const Menu = styled.menu`
 `
 
 export const Button = styled.button` 
-background-color: #ffc107;
+
     border-radius: 15px;
     margin-top: 12px;
     width: 134px;
@@ -101,7 +101,7 @@ background-color: #ec3a3a;
 
 .square-rotation{
     width: 75px;
-    margin-top: -446px;
+    margin-top: -394px;
     height: 65px;
     margin-left: 226px;
     background-color: #3e3e3a;
@@ -225,6 +225,73 @@ body {
 
 
 `
-export const Modal = styled.div`
+
+//LOGIN MODAL
+
+export const  LoginModal = styled.div`
+.container {
+   font-family: 'Montserrat';
+  padding: 2rem 0rem;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 400px;
+  }
+  .modal-dialog .modal-content {
+    padding: 1rem;
+  }
+}
+.modal-header .close {
+  margin-top: -1.5rem;
+}
+
+.form-title {
+  margin: -2rem 0rem 2rem;
+  font-family: 'Montserrat';
+}
+
+.btn-warning {
+  border-radius: 3rem;
+  font-family: 'Montserrat';
+}
+
+.delimiter {
+  padding: 1rem;
+}
+
+.social-buttons .btn {
+  margin: 0 0.5rem 1rem;
+
+}
+
+.signup-section {
+  padding: 0.3rem 0rem;
+  
+ font-family: 'Montserrat';
+
+
+
+}
+
+
+
+
+
+
 
 `
+
+
+
+export const Modal = styled.div `
+
+
+
+.h1-1 {
+  font-family: 'Montserrat';
+  font-size: 14px;
+}
+
+`
+
