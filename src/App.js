@@ -9,7 +9,7 @@ import './App.scss'
 
 function App() {
   const [loginModalShow, setLoginModalShow] = useState(false);
-  console.log('viado');
+
   return (
     <>
       <Header>

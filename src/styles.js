@@ -26,13 +26,22 @@ export const Button = styled.button`
 
 export const ContainerShirt = styled.div`
   display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  height: 600px;
-  width: 400px;
-  border: 1px solid #dee2e6;
+  gap: 1rem;
   border-radius: .25rem;
   padding: .5rem;
+
+  img, svg {
+    height: 345px;
+  }
+
+  img {
+    mix-blend-mode: multiply;
+  }
+
+  svg {
+    position: absolute;
+    left: 0;
+  }
 `
 
 export const Menu = styled.aside`
@@ -56,12 +65,24 @@ export const Menu = styled.aside`
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       color: #fff;
       height: 100px;
       width: 100px;
       border-radius: .5rem;
+      text-align: center;
 
-      :hover {
+      &.gold {
+        background-color: #ffe600;
+        color: #000;
+
+        :hover, &.active {
+          background-color: #f7df00;
+        }
+      }
+
+
+      :hover, &.active {
         cursor: pointer;
         background-color: #31312b;
       }
@@ -70,9 +91,11 @@ export const Menu = styled.aside`
   }
 
   .custom {
+    display: flex;
+    flex-direction: column;
     background-color: #fff;
     height: 600px;
-    width: 250px;
+    width: 400px;
     border: 1px solid #3e3e3a;
     border-radius: .25rem;
     border-top-left-radius: 0;
@@ -120,28 +143,6 @@ export const LoginModal = styled.div`
 
 .signup-section {
   padding: 0.3rem 0rem;
-  
- font-family: 'Montserrat';
-
-
-
-}
-
-
-
-
-
-
-
-`
-
-
-
-export const Modal = styled.div`
-
-.h1-1 {
-  font-family: 'Montserrat';
-  font-size: 14px;
 }
 
 `
