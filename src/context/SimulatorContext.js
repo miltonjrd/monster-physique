@@ -3,6 +3,10 @@ import { createContext } from "react";
 const SimulatorContext = createContext({
   context: {
     custom: [],
+    images: {
+      front: [],
+      back: []
+    },
     template: null,
     templateRefs: {
       front: null,
