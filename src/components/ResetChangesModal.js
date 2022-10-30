@@ -12,7 +12,11 @@ const ResetChangesModal = ({ show, setShow }) => {
     setSimulatorContext((state) => {
       return {
         ...state,
-        custom: state.custom.map(() => '#fff')
+        custom: state.custom.map(() => '#fff'),
+        images: {
+          front: [],
+          back: []
+        }
       };
     });
 
