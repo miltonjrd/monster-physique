@@ -32,6 +32,7 @@ const ColorPicker= ({ feature, colors, onAccordionOpen }) => {
           backgroundColor: simulatorContext.custom[feature.id] || '#fff',
           height: '25px',
           width: '25px',
+        
           cursor: 'pointer'
         }} 
         onClick={() => {

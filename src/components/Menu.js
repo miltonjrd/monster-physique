@@ -41,6 +41,7 @@ const StyledMenu = styled.aside`
       color: #fff;
       height: 100px;
       width: 100px;
+      max-width: 980px;
       border-radius: .5rem;
       text-align: center;
 

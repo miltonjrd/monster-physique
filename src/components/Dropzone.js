@@ -7,7 +7,8 @@ const StyledDropzone = styled.div`
   align-items: center;
   background-color: #f8f9fa;
   height: 100%;
-  width: 100%;
+  width: 100%;.
+  max-width: 980px;
   border-style: dashed;
   border-width: 1px;
   border-color: #dee2e6;
