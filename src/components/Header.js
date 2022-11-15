@@ -29,15 +29,6 @@ const Header = () => {
     <StyledHeader>
       <div className="container h-100 d-flex justify-content-between align-items-center">
         {/* <img src={Logo} alt="Logo" /> */}
-        <div></div>
-        <button 
-          className="btn btn-primary rounded-pill py-2 px-5" 
-          type="button"
-          onClick={() => setLoginModalShow(true)}
-        >
-          <strong>Login</strong>
-        </button>
-        <LoginModal show={loginModalShow} setShow={setLoginModalShow} />
       </div>
     </StyledHeader>
   );
