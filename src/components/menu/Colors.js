@@ -32,6 +32,10 @@ const ColorPicker= ({ feature, colors, onAccordionOpen }) => {
           backgroundColor: simulatorContext.custom[feature.id] || '#fff',
           height: '25px',
           width: '25px',
+<<<<<<< HEAD
+=======
+        
+>>>>>>> f4c586bed62c4bd59062db4478135b6335897f99
           cursor: 'pointer'
         }} 
         onClick={() => {
@@ -77,7 +81,11 @@ const Colors = () => {
       <h5 className="mb-3">
         <strong>Cor</strong>
       </h5>
+<<<<<<< HEAD
       <div ref={optionsContainer} className="d-flex flex-column gap-3" style={{ overflowY: 'scroll' }}>
+=======
+      <div ref={optionsContainer} className="d-flex flex-column gap-3">
+>>>>>>> f4c586bed62c4bd59062db4478135b6335897f99
         {
           [
             {

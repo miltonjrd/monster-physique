@@ -31,18 +31,22 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
+<<<<<<< HEAD
 input, button, textarea {
   &:focus {
     outline: 0;
   }
 }
 
+=======
+>>>>>>> f4c586bed62c4bd59062db4478135b6335897f99
 .shadow-none {
   box-shadow: 0;
 }
 
 .border-dashed {
   --bs-border-style: dashed;
+<<<<<<< HEAD
 }
 
 .show-on-mobile {
@@ -82,4 +86,6 @@ input, button, textarea {
   .hide-on-tablet {
     display: none !important;
   }
+=======
+>>>>>>> f4c586bed62c4bd59062db4478135b6335897f99
 }
