@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // dependencies
 import { useState, useContext } from 'react';
 import { Modal, CloseButton } from 'react-bootstrap';
@@ -34,12 +33,6 @@ const LoginModal = ({ show, setShow }) => {
 
     setIsLoading(false);
   };
-
-=======
-import { Modal, CloseButton } from 'react-bootstrap';
-
-const LoginModal = ({ show, setShow }) => {
->>>>>>> f4c586bed62c4bd59062db4478135b6335897f99
   return (
     <Modal show={show}>
       <Modal.Header className="border-bottom-0">
@@ -49,7 +42,6 @@ const LoginModal = ({ show, setShow }) => {
         <div className="form-title text-center">
           <h4>Login</h4>
         </div>
-<<<<<<< HEAD
         <form className="d-flex flex-column text-center gap-2" onSubmit={handleSubmit}>
           <div className="form-floating">
             <input id="identifier" name="identifier" type="text" className="form-control" placeholder=" " autoComplete='off'/>
@@ -88,16 +80,6 @@ const LoginModal = ({ show, setShow }) => {
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-center">
         <span>Crie sua conta <a href="#a" className="text-info">Clique Aqui</a>.</span>
-=======
-        <form className="d-flex flex-column text-center gap-2">
-          <input type="email" className="form-control" placeholder="Seu email" />
-          <input type="password" className="form-control" placeholder="Sua senha"></input>
-          <button type="button" className="btn btn-primary">Login</button>
-        </form>
-      </Modal.Body>
-      <Modal.Footer className="d-flex justify-content-center">
-        <div className="signup-section">Crie sua conta <a href="#a" className="text-info">Clique Aqui</a>.</div>
->>>>>>> f4c586bed62c4bd59062db4478135b6335897f99
       </Modal.Footer>
     </Modal>
   );
