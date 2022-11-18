@@ -7,6 +7,7 @@ import LoginModal from "./LoginModal";
 
 // images
 import Logo from '../images/logo.png';
+import { Link } from 'react-router-dom';
 
 const StyledHeader = styled.header`
   position: sticky;
@@ -22,6 +23,7 @@ const Header = () => {
     <StyledHeader>
       <div className="container h-100 d-flex justify-content-between align-items-center">
         {/* <img src={Logo} alt="Logo" /> */}
+        <Link path="/simulator">Simulador</Link>
       </div>
     </StyledHeader>
   );
