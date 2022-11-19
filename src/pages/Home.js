@@ -22,7 +22,6 @@ const Home = () => {
         <Produtos />
         <Depoiments />
         <Footer />
-        
     </main>
   );
 }
