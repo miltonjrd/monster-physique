@@ -90,7 +90,7 @@ const Depoiments = () => {
 
             {/*QUANTIDADE DE CLIENTS */}
 
-            <Clients>
+            <Clients className="py-5">
 
                 <section className='section-top'>
                     <div className='text-produtions'>
@@ -107,9 +107,6 @@ const Depoiments = () => {
                     </div>
                 </section>
             </Clients>
-            <svg className="text-dark w-100" style={{ transform: 'scaleX(-1)' }} viewBox="0 0 1920 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1920 100L0.5 0.5V0H1920V100Z" fill="currentColor"/>
-            </svg>
         </>
     );
 }
