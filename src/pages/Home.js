@@ -12,7 +12,6 @@ import Depoiments from '../components/Depoiments';
 import Footer from '../components/Footer';
 import Produtos from '../components/Produtos';
 
-
 //images
 
 const Home = () => {
@@ -23,7 +22,6 @@ const Home = () => {
         <Produtos />
         <Depoiments />
         <Footer />
-      
     </main>
   );
 }

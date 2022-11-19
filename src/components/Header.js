@@ -65,18 +65,16 @@ color: blue;
   background:none;
   color:#FBB829;
  }
-
-
 `;
+
 
 const Header = () => {
   const [loginModalShow, setLoginModalShow] = useState(false);
 
   return (
     <StyledHeader>
-
         {/* <img src={Logo} alt="Logo" /> */}
-    {/*   <Link path="/simulator">Simulador</Link> */}
+        {/*   <Link path="/simulator">Simulador</Link> */}
         <nav>
           <ul className='text-center'>
             <li><a href="#" class="titulo-blog">Monster Physique</a></li>

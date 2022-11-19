@@ -40,7 +40,6 @@ font-size: 90px;
 }
 
 `;
-
 const Depoiments = () => {
     return (
         <>
@@ -76,6 +75,7 @@ const Depoiments = () => {
                                             nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                                             cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
                                             officia deserunt mollit anim id est laborum.
+
                                         </p>
                                     </div>
                                 </SwiperSlide>
@@ -106,8 +106,10 @@ const Depoiments = () => {
                         <h1 className='span-produtions'>0000+</h1>
                     </div>
                 </section>
-          </Clients>
-
+            </Clients>
+            <svg className="text-dark w-100" style={{ transform: 'scaleX(-1)' }} viewBox="0 0 1920 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1920 100L0.5 0.5V0H1920V100Z" fill="currentColor"/>
+            </svg>
         </>
     );
 }
