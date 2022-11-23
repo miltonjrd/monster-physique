@@ -77,9 +77,9 @@ const Header = () => {
         {/*   <Link path="/simulator">Simulador</Link> */}
         <nav>
           <ul className='text-center'>
-            <li><a href="#" class="titulo-blog">Monster Physique</a></li>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Produtos</a></li>
+            <li><a href="#" className="titulo-blog">Monster Physique</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Produtos</a></li>
             <Link path="/simulator">Simulador</Link>
   
             <button style={{marginLeft:"150px",width:"147px",height:"46px"}} 
