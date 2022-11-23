@@ -1,10 +1,13 @@
 //dependencies
 import { useEffect, useState, useRef, useContext } from 'react';
-import { FaSyncAlt, FaTshirt, FaFillDrip, FaImage, FaDollarSign } from 'react-icons/fa'
+import { FaSyncAlt, FaTshirt, FaFillDrip, FaImage, FaDollarSign } from 'react-icons/fa';
+import domtoimage from 'dom-to-image';
+import FileSaver, { fileSaver } from 'file-saver';
 import styled from 'styled-components';
 
 // context
 import SimulatorContext from '../context/SimulatorContext';
+import ModalContext from '../context/ModalContext';
 
 // components
 import Colors from './menu/Colors';
@@ -95,6 +98,9 @@ const Menu = () => {
   const [cartModalShow, setCartModalShow] = useState(false);
   const listRef = useRef();
 
+  const { setContext: setModalContext } = useContext(ModalContext);
+  const { context: simulatorContext } = useContext(SimulatorContext);
+
   const handleItemClick = (evt, i) => {
     Array.from(listRef.current.querySelectorAll('li')).forEach((item) => {
       item.classList.remove('active');
@@ -128,17 +134,38 @@ const Menu = () => {
           ].map((item, i) => (
             <li key={i} role="button" className={item.className} onClick={(evt) => handleItemClick(evt, i)}>
               <item.icon size={18} className="mb-2" />
-              <span>{item.label}</span>
+              <small>{item.label}</small>
             </li>
           ))
         }
-        <li role="button" className="gold" onClick={() => setCartModalShow(true)}>
+        <li 
+          role="button" 
+          className="gold" 
+          onClick={async () => {
+            const node = document.querySelector('#template-container');
+            const blob = await domtoimage.toBlob(node);
+
+            const cartItem = {
+              template_name: simulatorContext.template.name,
+              tissue: null,
+              quantity: 1,
+              blob
+            };
+
+            if (sessionStorage.getItem('cart')) {
+              const cart = JSON.parse(sessionStorage.getItem('cart'));
+              cart.push(cartItem);
+              sessionStorage.setItem('cart', JSON.stringify(cart));
+            } else
+              sessionStorage.setItem('cart', JSON.stringify([cartItem]));
+            setModalContext(state => ({ ...state, CART: true }));
+          }}
+        >
           <FaDollarSign size={18} className="mb-2" />
-            <span>Fazer oçamento</span>
+            <small>Fazer oçamento</small>
           </li>
       </ul>
       <Right type={menuType} />
-      <CartModal show={cartModalShow} setShow={setCartModalShow} />
     </StyledMenu>
   );
 };

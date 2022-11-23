@@ -23,7 +23,7 @@ const ImageUpload = () => {
         </div>
 
         <Dropzone
-          className="hide-on-tablet"
+          className="hide-on-tablet w-100"
           style={{ minHeight: '150px' }} 
           mimeTypes={['image/png', 'image/jpeg', 'image/svg+xml']}
           onValidDrop={handleValidUpload}

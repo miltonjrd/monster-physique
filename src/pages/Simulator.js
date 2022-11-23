@@ -46,8 +46,10 @@ const Simulator = () => {
   useEffect(() => {
     const { front, back } = simulatorContext.templateRefs;
 
-    const frontShapes = front.current.querySelectorAll('path');
-    const backShapes = back.current.querySelectorAll('path');
+    const frontShapes = front.current.getSVGDocument()//.querySelectorAll('path');
+    const backShapes = back.current.contentDocument//.querySelectorAll('path');
+
+    console.log(frontShapes);
 
     simulatorContext.custom.forEach((c, i) => {
       frontShapes[i].style.fill = c;

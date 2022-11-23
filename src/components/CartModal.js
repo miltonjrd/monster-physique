@@ -8,7 +8,9 @@ import { FaTrashAlt } from 'react-icons/fa';
 import styled from 'styled-components';
 import api from '../api';
 
+// context
 import SimulatorContext from '../context/SimulatorContext';
+import ModalContext from '../context/ModalContext';
 
 const Label = styled.label`
   display: flex;
@@ -28,6 +30,15 @@ const Table = styled.table`
     
     td {
       padding: .5rem;
+
+      .trash-btn {
+        color: gray;
+        transition: color ease .5s;
+
+        :hover {
+          color: #fc4850;
+        }
+      }
     }
 
     :nth-child(even) {
@@ -47,10 +58,11 @@ const CartModal = ({ show, setShow }) => {
     whatsapp: null,
     birthdate: null
   });
-  const [items, setItems] = useState(new Array(5).fill(0));
+  const [items, setItems] = useState([]);
   const [canSubmit, setCanSubmit] = useState(false);
 
   const { context: simulatorContext} = useContext(SimulatorContext);
+  const { context: modalContext, setContext: setModalContext } = useContext(ModalContext);
 
   const regex = {
     email: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
@@ -117,6 +129,11 @@ const CartModal = ({ show, setShow }) => {
   };
 
   useEffect(() => {
+    if (sessionStorage.getItem('cart'))
+      setItems(JSON.parse(sessionStorage.getItem('cart')));
+  }, [modalContext.CART]);
+
+  useEffect(() => {
     validateFields();
   }, [form]);
 
@@ -131,7 +148,7 @@ const CartModal = ({ show, setShow }) => {
 
   return (
     <Modal 
-      show={show}
+      show={modalContext.CART}
       size="lg" 
       fullscreen="sm-down" 
       dialogClassName="h-100 my-0 me-0" 
@@ -139,7 +156,7 @@ const CartModal = ({ show, setShow }) => {
     >
       <Modal.Body>
         <div className="d-flex justify-content-end mb-4">
-          <CloseButton onClick={() => setShow(false)} className="shadow-none" />
+          <CloseButton onClick={() => setModalContext(state => ({ ...state, CART: false }))} className="shadow-none" />
         </div>
 
         <div>
@@ -158,13 +175,23 @@ const CartModal = ({ show, setShow }) => {
               </thead>
               <tbody>
                 {
-                  items.fill(0).map((_, i) => (
+                  items.map((item, i) => (
                     <tr key={i}>
-                      <td>Normal</td>
-                      <td>Algodão</td>
+                      <td>
+                        <small>{item.template_name}</small>
+                      </td>
+                      <td>
+                        <small>
+                          <select className="border p-2">
+                            <option>Algodão</option>
+                            <option>Algodão</option>
+                            <option>Algodão</option>
+                          </select>
+                        </small>
+                      </td>
                       <td>
                         <input 
-                          className="border border-secondary rounded-1"
+                          className="border bg-light "
                           style={{ width: 50 }}
                           type="number" 
                           defaultValue={1}
@@ -179,10 +206,13 @@ const CartModal = ({ show, setShow }) => {
                         />
                       </td>
                       <td>
-                        <button className="btn"
+                        <button className="btn border-0 trash-btn"
                           onClick={() => {
-                            setItems(state => state.filter((_, index) => index !== i))
-                            console.log(0);
+                            setItems(state => {
+                              const newItems = state.filter((_, index) => index !== i);
+                              sessionStorage.setItem('cart', JSON.stringify(newItems));
+                              return newItems;
+                            })
                           }}
                         >
                           <FaTrashAlt />

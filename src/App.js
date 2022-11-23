@@ -11,26 +11,32 @@ import AppRoutes from './AppRoutes';
 
 // context
 import LoaderContext from './context/LoaderContext';
+import ModalContext from './context/ModalContext';
 
 import './App.scss'
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [modalsState, setModalsState] = useState({
+    CART: false
+  });
 
   return (
     <Router>
       <LoaderContext.Provider value={{ context: isLoading, setContext: setIsLoading }}>
-        <div
-          className={`${isLoading ? 'd-flex' : 'd-none'} justify-content-center align-items-center position-absolute w-100 h-100`}
-          style={{
-            backgroundColor: '#00000030',
-            zIndex: 1060
-          }}
-        >
-          <div className="spinner-grow text-primary" style={{ width: '3rem', height: '3rem' }} />
-        </div>
-        <Header />
-        <AppRoutes />
+        <ModalContext.Provider value={{ context: modalsState, setContext: setModalsState }}>
+          <div
+            className={`${isLoading ? 'd-flex' : 'd-none'} justify-content-center align-items-center position-absolute w-100 h-100`}
+            style={{
+              backgroundColor: '#00000030',
+              zIndex: 1060
+            }}
+          >
+            <div className="spinner-grow text-primary" style={{ width: '3rem', height: '3rem' }} />
+          </div>
+          <Header />
+          <AppRoutes />
+        </ModalContext.Provider>
       </LoaderContext.Provider>
     </Router>
   );
