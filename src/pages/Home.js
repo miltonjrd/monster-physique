@@ -11,6 +11,7 @@ import Landing from '../components/Landing';
 import Depoiments from '../components/Depoiments';
 import Footer from '../components/Footer';
 import Produtos from '../components/Produtos';
+import Contact from '../components/Contact';
 
 
 
@@ -24,7 +25,7 @@ const Home = () => {
         <Produtos />
         <Depoiments />
         <Footer />
- 
+        <Contact />
     </main>
   );
 }
