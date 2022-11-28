@@ -35,7 +35,7 @@ const Templates = () => {
                 setSimulatorContext(state => ({...state, template }));
               }}
             >
-              <img className="mb-3" style={{ height: '100px' }} src={`${baseUrl}/mockups/${template.mockup_front}`} alt="" />
+              <img className="mb-3" style={{ height: '100px' }} src={`${baseUrl}/storage/mockups/${template.mockup_front}`} alt="" />
               <p style={{ lineHeight: 1.2 }}>
                 <small className="mt-2 text-uppercase">{template.name}</small>
               </p>

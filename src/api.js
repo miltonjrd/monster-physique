@@ -8,15 +8,16 @@ axios.defaults.baseURL = apiUrl;
 axios.defaults.headers.common['Authorization'] = 'bearer '+sessionStorage.getItem('authorization');
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-export const useApi = (url, payload = null) => {
+export const useApi = (url, payload = null, immediatly = true) => {
     const fetcher = async (url) => (await axios(url, payload)).data;
 
-    const { data, error } = useSWR(url, fetcher);
+    const { data, error, mutate } = useSWR(immediatly ? url : null, fetcher);
     
     return {
         data,
         loading: !data && !error,
-        error
+        error,
+        mutate
     };
 };
 

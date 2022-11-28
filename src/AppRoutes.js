@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Simulator from './pages/Simulator';
-import Products from './components/Products';
+import Products from './pages/Products';
 
 
 

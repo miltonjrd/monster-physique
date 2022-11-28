@@ -47,7 +47,7 @@ const Header = () => {
               <Link to="/" className='header-item'>Home</Link>
             </li>
             <li>
-              <a href="#" className='header-item'>Produtos</a>
+              <Link to="products" className='header-item'>Produtos</Link>
             </li>
             <li>
               <Link to="simulator" className='header-item'>Simulador</Link>

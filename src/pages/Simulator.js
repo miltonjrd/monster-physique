@@ -1,5 +1,5 @@
 // dependencies
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useContext } from 'react'
 import styled from 'styled-components';
 
 // context
@@ -10,10 +10,15 @@ import Menu from '../components/Menu';
 import TemplateContainer from '../components/TemplateContainer';
 
 const Container =  styled.div`
+  display: flex;
   margin-top: 3rem;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1366px) {
     margin-top: 1rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    justify-content: center;
   }
 
   @media screen and (max-width: 400px) {
@@ -27,21 +32,8 @@ const Container =  styled.div`
 `;
 
 const Simulator = () => {
-  
-  const templateFrontRef = useRef();
-  const templateBackRef = useRef();
 
-  const [simulatorContext, setSimulatorContext] = useState({
-    custom: [],
-    images: {
-      front: [],
-      back: []
-    },
-    templateRefs: {
-      back: templateBackRef,
-      front: templateFrontRef
-    }
-  });
+  const { context: simulatorContext } = useContext(SimulatorContext);
 
   useEffect(() => {
     const { front, back } = simulatorContext.templateRefs;
@@ -49,7 +41,7 @@ const Simulator = () => {
     const frontShapes = front.current.getSVGDocument()//.querySelectorAll('path');
     const backShapes = back.current.contentDocument//.querySelectorAll('path');
 
-    console.log(frontShapes);
+    console.log('shapes:', frontShapes);
 
     simulatorContext.custom.forEach((c, i) => {
       frontShapes[i].style.fill = c;
@@ -59,18 +51,14 @@ const Simulator = () => {
   }, [simulatorContext]);
   
   return (
-    <SimulatorContext.Provider 
-      value={{ context: simulatorContext, setContext: setSimulatorContext }}
-    >
-      <main className="container">
-        <Container className="d-flex mx-4">
-          <Menu />
-          <section className="bg-white border rounded-1 d-flex flex-column justify-content-center p-3">
-            <TemplateContainer />            
-          </section>
-        </Container>
-      </main>
-    </SimulatorContext.Provider>
+    <main className="container">
+      <Container className="mx-4">
+        <Menu />
+        <section className="bg-white border rounded-1 d-flex flex-column justify-content-center p-3">
+          <TemplateContainer />            
+        </section>
+      </Container>
+    </main>
   );
 }
 

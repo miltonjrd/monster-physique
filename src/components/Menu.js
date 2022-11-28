@@ -1,6 +1,7 @@
 //dependencies
 import { useEffect, useState, useRef, useContext } from 'react';
 import { FaSyncAlt, FaTshirt, FaFillDrip, FaImage, FaDollarSign } from 'react-icons/fa';
+import { CloseButton } from 'react-bootstrap';
 import domtoimage from 'dom-to-image';
 import FileSaver, { fileSaver } from 'file-saver';
 import styled from 'styled-components';
@@ -14,6 +15,7 @@ import Colors from './menu/Colors';
 import Templates from './menu/Templates';
 import ImageUpload from './menu/ImageUpload';
 import CartModal from './CartModal';
+import api from '../api';
 
 const MENU_TEMPLATES = 0;
 const MENU_COLOR  = 1;
@@ -21,8 +23,11 @@ const MENU_IMAGE  = 2;
 
 const StyledMenu = styled.aside`
   display: flex;
+  z-index: 1;
 
   ul {
+    display: flex;
+    flex-direction: column;
     align-self: flex-start;
     background-color: #3e3e3a;
     width: 100px;
@@ -74,13 +79,43 @@ const StyledMenu = styled.aside`
     border: 1px solid #3e3e3a;
     border-radius: .25rem;
     border-top-left-radius: 0;
+
+    @media screen and (max-width: 1366px) {
+      width: 350px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    ul {
+      flex-direction: row;
+      justify-content: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-radius: 0;
+    }
+
+    .custom {
+      height: 300px;
+      width: 100%;
+      margin-bottom: 100px;
+    }
   }
 `;
 
-const Right = ({ type }) => {
+const Right = ({ type, close }) => {
 
   return (
-    <div className="custom p-4">
+    <div className={`custom p-4 ${type === -1 ? 'invisible' : ''}`}>
+      <div className="d-flex justify-content-end">
+        <CloseButton onClick={close} />
+      </div>
       {
         type === MENU_TEMPLATES ? 
         <Templates /> :
@@ -94,26 +129,13 @@ const Right = ({ type }) => {
 };
 
 const Menu = () => {
-  const [menuType, setMenuType] = useState(0);
-  const [cartModalShow, setCartModalShow] = useState(false);
-  const listRef = useRef();
-
+  const [activeMenu, setActiveMenu] = useState(-1);
   const { setContext: setModalContext } = useContext(ModalContext);
   const { context: simulatorContext } = useContext(SimulatorContext);
 
-  const handleItemClick = (evt, i) => {
-    Array.from(listRef.current.querySelectorAll('li')).forEach((item) => {
-      item.classList.remove('active');
-    });
-
-    evt.currentTarget.classList.add('active');
-    listRef.current.classList.add('active');
-    setMenuType(i);
-  };
-
   return (
     <StyledMenu>
-      <ul ref={listRef}>
+      <ul className={activeMenu !== -1 ? 'active' : ''}>
         {
           [
             {
@@ -132,7 +154,13 @@ const Menu = () => {
               className: ''
             }
           ].map((item, i) => (
-            <li key={i} role="button" className={item.className} onClick={(evt) => handleItemClick(evt, i)}>
+            <li 
+            key={i} 
+            role="button" 
+            className={`${item.className} ${activeMenu === i ? 'active' : ''}`} 
+            onClick={(evt) => setActiveMenu(i)}
+            >
+
               <item.icon size={18} className="mb-2" />
               <small>{item.label}</small>
             </li>
@@ -143,21 +171,22 @@ const Menu = () => {
           className="gold" 
           onClick={async () => {
             const node = document.querySelector('#template-container');
+            const formData = new FormData();
             const blob = await domtoimage.toBlob(node);
-
-            const cartItem = {
+            console.log(blob)
+            const data = {
               template_name: simulatorContext.template.name,
-              tissue: null,
+              template_id: simulatorContext.template.id,
+              tissue: 'Algodao',
               quantity: 1,
-              blob
+              annex: blob
             };
 
-            if (sessionStorage.getItem('cart')) {
-              const cart = JSON.parse(sessionStorage.getItem('cart'));
-              cart.push(cartItem);
-              sessionStorage.setItem('cart', JSON.stringify(cart));
-            } else
-              sessionStorage.setItem('cart', JSON.stringify([cartItem]));
+            for (let key in data) {
+              formData.append(key, data[key]);
+            }
+            api.post('cart', formData);
+
             setModalContext(state => ({ ...state, CART: true }));
           }}
         >
@@ -165,7 +194,7 @@ const Menu = () => {
             <small>Fazer oçamento</small>
           </li>
       </ul>
-      <Right type={menuType} />
+      <Right type={activeMenu} close={() => setActiveMenu(-1)} />
     </StyledMenu>
   );
 };
