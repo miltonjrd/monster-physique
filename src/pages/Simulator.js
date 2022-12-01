@@ -34,21 +34,6 @@ const Container =  styled.div`
 const Simulator = () => {
 
   const { context: simulatorContext } = useContext(SimulatorContext);
-
-  useEffect(() => {
-    const { front, back } = simulatorContext.templateRefs;
-
-    const frontShapes = front.current.getSVGDocument()//.querySelectorAll('path');
-    const backShapes = back.current.contentDocument//.querySelectorAll('path');
-
-    console.log('shapes:', frontShapes);
-
-    simulatorContext.custom.forEach((c, i) => {
-      frontShapes[i].style.fill = c;
-      backShapes[i].style.fill = c;
-    });
-
-  }, [simulatorContext]);
   
   return (
     <main className="container">

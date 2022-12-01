@@ -18,19 +18,16 @@ const Container = styled.div`
   border-radius: .25rem;
   padding: .5rem;
 
-  img.template-img, svg.template-svg {
+  img.template-img, .template-svg {
     height: 345px;
     width: 100%;
-  }
-
-  img.template-img {
-    mix-blend-mode: multiply;
   }
 
   .template-svg {
     position: absolute;
     left: 0;
     pointer-events: none;
+    mix-blend-mode: multiply;
   }
 
   .image-overlay {
@@ -133,16 +130,32 @@ const Image = ({ side, imgProps }) => {
 const TemplateContainer = () => {
   const [side, setSide] = useState('front');
   const { context: simulatorContext, setContext: setSimulatorContext } = useContext(SimulatorContext);
+  const { front, back } = simulatorContext.templateRefs;
 
   const getSVG = async (side, filename) => {
-    const markup = await (await fetch(`${baseUrl}/svgs/${filename}`)).text();
+    const markup = await (await fetch(`${baseUrl}/storage/svgs/${filename}`)).text();
     const blob = new Blob([markup], { type: 'image/svg+xml'});
     simulatorContext.templateRefs[side].current.data = URL.createObjectURL(blob);
   };
   
+  // handles color customization
   useEffect(() => {
-    //getSVG('front', 'aaa.png');
-  }, []);
+    Array.from(front.current.contentDocument.querySelectorAll('path'))
+    .forEach((path, i) => {
+      path.style.fill = simulatorContext.custom[i];
+    });
+
+    Array.from(back.current.contentDocument.querySelectorAll('path'))
+    .forEach((path, i) => {
+      path.style.fill = simulatorContext?.custom[i] || 'transparent';
+    });
+  }, [simulatorContext]);
+
+  useEffect(() => {
+    simulatorContext.custom = [];
+    getSVG('front', 'aaa.svg');
+    getSVG('back', 'bbb.svg');
+  }, [simulatorContext.template]);
 
   return (
     <>
@@ -155,13 +168,14 @@ const TemplateContainer = () => {
               <path d="M42 70L28 45.5L27.5 45L18 68.5L15.5 82L12.5 100.5L11 119L7.5 134L0.5 155L1.5 156L13 159C15.5 159.833 20.6 161.5 21 161.5C21.4 161.5 30.1667 163.833 34.5 165L44 165.5H49.5L53 161L58 149.5L62 125L53.5 99.5L42 70Z" fill="#fff"/>
               <path d="M258 70L272 45.5L272.5 45L282 68.5L284.5 82L287.5 100.5L289 119L292.5 134L299.5 155L298.5 156L287 159C284.5 159.833 279.4 161.5 279 161.5C278.6 161.5 269.833 163.833 265.5 165L256 165.5H250.5L247 161L242 149.5L238 125L246.5 99.5L258 70Z" fill="#fff"/>
             </svg> */}
+            
+            <img className='template-img' src={`${baseUrl}/storage/mockups/${simulatorContext.template?.mockup_front}`} alt="" tabIndex={-1} />
             <object 
               className="template-svg" 
-              ref={simulatorContext.templateRefs.front} 
-              data={`${baseUrl}/storage/svgs/aaa.svg`} 
+              ref={front} 
               type="image/svg+xml" 
+              data=""
             />
-            <img className='template-img' src={`${baseUrl}/storage/mockups/${simulatorContext.template?.mockup_front}`} alt="" tabIndex={-1} />
             <div
               className="position-absolute top-0 w-100 h-100"
               style={{
@@ -184,13 +198,14 @@ const TemplateContainer = () => {
         </div>
         <div style={{ minWidth: 275, height: 400 }} className={side !== 'back' ? 'hide-on-tablet' : ''}>
           <div className="position-relative text-center" style={{ flex: 1 }}>
-            <svg className="template-svg" ref={simulatorContext.templateRefs.back} height="376" viewBox="0 0 298 376" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M113.5 2.5L120.5 1L153.5 1.5L181 0.5L188.5 2.5L190 4L193 6L195.5 9L206.5 14L216 18.5L239.5 31L245 35L262.5 46L269 51.5L271 53.5L271.5 54.5L264 83.5L252.5 112.5L240 156.5H239L237 164L235 207.5L234 219.5L235.5 244L236 279.5L238 297L241 315.5L242.5 326.5L244 344L246.5 354L240 359.5L227.5 366.5L215.5 371L203 374L193 375.5L183.5 376H127L107.5 375.5L97 374L84.5 370.5L73.5 366.5L60 358.5L55.5 354V350L57.5 344.5L59 328L61.5 310.5L64 294.5L65.5 273V261L67 222.5L66.5 211L64 162L61.5 155L47.5 110L29.5 56.5L30 54.5L37.5 47.5L47 41.5L58.5 34L65 29.5L76 23.5L107 8L108.5 5.5L113.5 2.5Z" />
-              <path d="M108 5L107 7H118.5L154 8L178.5 7.5H195L189.5 2L180.5 0L153.5 0.5L119 0L112.5 2L108 5Z" />
-              <path d="M264 83.5L271 54.5L272 55L278.5 70.5L282.5 83.5L284 90.5L286 100L286.5 117.5L289.5 133.5L290.5 141L294.5 152.5L297.5 162.5L293.5 165L279 171L263 174H254.5L244.5 170.5L240 157L245.5 138L252.5 113L264 83.5Z" />
-              <path d="M47 108L29.5 56.5L23.5 69L20.5 77L18.5 85L15.5 100.5L13 113L9.5 131L3.5 150.5L0 161.5L0.5 162.5L11 168L25.5 171.5L42 174L48 173.5L52.5 171.5L54.5 165L59 156.5L61.5 154.5L58 144L47 108Z" />
-            </svg>
+            
             <img className='template-img' src={`${baseUrl}/storage/mockups/${simulatorContext.template?.mockup_back}`} alt="" tabIndex={-1} />
+            <object 
+              className="template-svg" 
+              ref={back} 
+              data=""
+              type="image/svg+xml" 
+            />
             <div
               className="position-absolute top-0 w-100 h-100"
               style={{

@@ -40,7 +40,7 @@ const ColorPicker= ({ feature, colors, onAccordionOpen }) => {
           colorPickerAccordion.current.classList.toggle('d-none');
         }}
       />
-      <div ref={colorPickerAccordion} className="color-picker-accordion d-flex d-none gap-1 border p-2 rounded">
+      <div ref={colorPickerAccordion} className="color-picker-accordion d-flex flex-wrap d-none gap-1 border p-2 rounded">
         {
           colors.map((color, i) => (
             <button 
@@ -50,6 +50,7 @@ const ColorPicker= ({ feature, colors, onAccordionOpen }) => {
                 backgroundColor: color,
                 height: '20px',
                 width: '20px',
+                flexShrink: 0,
                 cursor: 'pointer'
               }} 
               onClick={() => {
