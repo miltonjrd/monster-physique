@@ -19,12 +19,10 @@ const StyledHeader = styled.header`
   height: 80px;
   background: #fff;
   border-bottom: 1px solid #dee2e6;
-
   .header-item {
     color: gray;
     text-decoration: none;
     transition: color ease-out .15s;
-
     :hover {
       color: #000;
     }
